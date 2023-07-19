@@ -102,15 +102,16 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles/"
 
-STATIC_URL = "static/"
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "mediafiles/"
 
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 
 DEFAULT_RENDERER_CLASSES = ["rest_framework.renderers.JSONRenderer"]
 
