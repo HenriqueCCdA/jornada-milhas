@@ -1,0 +1,17 @@
+services:
+
+  db:
+    container_name: jornada_milhas
+    image: postgres:15.1
+    restart: 'no'
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      - LC_ALL=C.UTF-8
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_USER=jornada_milhas
+    ports:
+      - 5432:5432
+
+volumes:
+  pg_data:

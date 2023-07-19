@@ -1,0 +1,76 @@
+[tool.poetry]
+name = "jornada-milhas"
+version = "0.1.0"
+description = "API para jornada milhas."
+authors = ["Henrique C. C. de Andrade <henrique.ccda@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "jornada_milhas"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.3"
+djangorestframework = "^3.14.0"
+drf-spectacular = "^0.26.3"
+python-decouple = "^3.8"
+dj-database-url = "^2.0.0"
+psycopg2 = "^2.9.6"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+coverage = "^7.2.7"
+ruff = "^0.0.278"
+black = "^23.7.0"
+ipython = "^8.14.0"
+ipdb = "^0.13.13"
+taskipy = "^1.11.0"
+pytest-django = "^4.5.2"
+django-extensions = "^3.2.3"
+pre-commit = "^3.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+line-length = 120
+exclude = '''
+/(
+      \.eggs
+    | \.git
+    | \.venv
+)/
+'''
+
+[tool.ruff]
+line-length = 120
+
+select = [
+    "E",
+    "F",
+    "I",
+]
+
+exclude = [
+    ".venv"
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "jornada_milhas.settings"
+addopts = "-ra -vv"
+testpaths = [
+    "jornada_milhas",
+]
+markers=[
+    "unitary: marks unitary tests",
+    "integration: marks integration testes",
+]
+
+[tool.taskipy.tasks]
+fmt = {cmd="poetry run black jornada_milhas && poetry run ruff check jornada_milhas --fix", help="Formatador do código"}
+linter = {cmd="poetry run ruff check jornada_milhas", help="Linter"}
+test = {cmd="pytest", help="Rodando os testes"}
+docker_db_up = {cmd="docker compose up db", help="Inicia o container do banco de dados"}

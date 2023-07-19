@@ -1,0 +1,54 @@
+name: Python application
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  fmt_linter_tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      max-parallel: 1
+      matrix:
+        python-version: ['3.11']
+
+    services:
+      postgres:
+        image: postgres:15.1
+        env:
+          POSTGRES_USER: jornada_milhas
+          POSTGRES_PASSWORD: 123456
+        ports: [ '5432:5432' ]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+        installer-parallel: true
+
+    - name: Install dependencies
+      run: poetry install --no-interaction --no-root
+
+    - name: Ruff and Black
+      run: |
+        poetry run ruff jornada_milhas
+        poetry run black --check --diff jornada_milhas
+
+    - name: Copying configurations
+      run: cp .env.sample .env
+
+    - name: Tests
+      run: poetry run pytest
