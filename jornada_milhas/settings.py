@@ -14,6 +14,8 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
 
+AUTH_USER_MODEL = "accounts.CustomUser"
+
 DOC_API = config("DOC_API", cast=bool, default=False)
 
 # Application definition
@@ -27,6 +29,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # APPs
     "jornada_milhas.core",
+    "jornada_milhas.accounts",
     #
     "rest_framework",
 ]

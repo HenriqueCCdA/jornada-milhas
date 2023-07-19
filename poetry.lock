@@ -347,6 +347,20 @@ files = [
 tests = ["asttokens", "littleutils", "pytest", "rich"]
 
 [[package]]
+name = "faker"
+version = "19.1.0"
+description = "Faker is a Python package that generates fake data for you."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "Faker-19.1.0-py3-none-any.whl", hash = "sha256:4b7d5cd0c898f0b64f88fbf0a35aac66762f2273446ba4a4e459985a2e5c8f8c"},
+    {file = "Faker-19.1.0.tar.gz", hash = "sha256:d1eb772faf4a7c458c90b19d3626c40ae3460bd665ad7f5fb7b089e31d1a6dcf"},
+]
+
+[package.dependencies]
+python-dateutil = ">=2.4"
+
+[[package]]
 name = "filelock"
 version = "3.12.2"
 description = "A platform independent file lock."
@@ -517,6 +531,20 @@ files = [
 
 [package.dependencies]
 traitlets = "*"
+
+[[package]]
+name = "model-bakery"
+version = "1.12.0"
+description = "Smart object creation facility for Django."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "model_bakery-1.12.0-py3-none-any.whl", hash = "sha256:70e991dd503e3f1956632c621946bb8e71012172db740bab75cd9d2a447283a3"},
+    {file = "model_bakery-1.12.0.tar.gz", hash = "sha256:bfa5d118f91f08ef4694d4aaab168c98efc91dab086aee587e71d66a7001701a"},
+]
+
+[package.dependencies]
+django = ">=3.2"
 
 [[package]]
 name = "mslex"
@@ -820,6 +848,20 @@ pytest = ">=5.4.0"
 [package.extras]
 docs = ["sphinx", "sphinx-rtd-theme"]
 testing = ["Django", "django-configurations (>=2.0)"]
+
+[[package]]
+name = "python-dateutil"
+version = "2.8.2"
+description = "Extensions to the standard Python datetime module"
+optional = false
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
+files = [
+    {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
+    {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
+]
+
+[package.dependencies]
+six = ">=1.5"
 
 [[package]]
 name = "python-decouple"
@@ -1211,4 +1253,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "b0a31b3faa2796b5fbb1833d666bc16e40286407c19a0bbabe0513eed2f1b89d"
+content-hash = "ad28f283a76ff822de23cbd5937ef8a4d36a11c68bf977f326e6a5fa9838ab04"
