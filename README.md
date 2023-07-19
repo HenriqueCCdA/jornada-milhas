@@ -1,4 +1,6 @@
 # Jornada Milhas
+[![Python application](https://github.com/HenriqueCCdA/jornada-milhas/actions/workflows/CI.yml/badge.svg)](https://github.com/HenriqueCCdA/jornada-milhas/actions/workflows/CI.yml)
+[![codecov](https://codecov.io/gh/HenriqueCCdA/jornada-milhas/branch/main/graph/badge.svg?token=DGE83HA807)](https://codecov.io/gh/HenriqueCCdA/jornada-milhas)
 
 | :placard: Vitrine.Dev |     |
 | -------------         | --- |
