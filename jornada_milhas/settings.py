@@ -122,12 +122,14 @@ if DEBUG:
     DEFAULT_RENDERER_CLASSES.append("rest_framework.renderers.BrowsableAPIRenderer")
 
 REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 100,
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_RENDERER_CLASSES": DEFAULT_RENDERER_CLASSES,
 }
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Jornada Milhas",
-    "DESCRIPTION": "Your project description",
+    "DESCRIPTION": "Api desenvolvida no challenge backend `7` da `ALura`",
     "VERSION": "0.1.0",
 }

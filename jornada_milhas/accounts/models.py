@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from jornada_milhas.accounts.managers import UserManager
 
 
+# TODO: Não esta muito bom o lugar dissp
 class CreationModificationBase(models.Model):
     created_at = models.DateTimeField(_("Creation Date and Time"), auto_now_add=True)
     modified_at = models.DateTimeField(_("Modificatioin Date and Time"), auto_now=True)
