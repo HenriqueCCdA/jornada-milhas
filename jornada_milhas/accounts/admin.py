@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from jornada_milhas.accounts.models import CustomUser as User
 
 
-class UserAdmin(UserAdmin):
+class UserModelAdmin(UserAdmin):
     fieldsets = (
         (
             None,
@@ -84,4 +84,4 @@ class UserAdmin(UserAdmin):
         queryset.filter(is_staff=False).update(is_active=False)
 
 
-admin.site.register(User, UserAdmin)
+admin.site.register(User, UserModelAdmin)
