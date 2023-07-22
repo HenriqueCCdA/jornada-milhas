@@ -64,7 +64,7 @@ exclude = [
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "jornada_milhas.settings"
-addopts = "-ra -vv"
+addopts = "-ra -vv -l"
 testpaths = [
     "jornada_milhas",
 ]
