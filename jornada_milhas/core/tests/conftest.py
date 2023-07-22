@@ -44,7 +44,7 @@ def post(photo, db):
 
 @pytest.fixture
 def posts(photo, db):
-    return baker.make(Post, _quantity=3, photo=photo)
+    return baker.make(Post, _quantity=5, photo=photo)
 
 
 @pytest.fixture

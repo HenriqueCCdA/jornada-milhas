@@ -14,6 +14,7 @@ class PostModelAdmin(admin.ModelAdmin):
             _("Post data"),
             {
                 "fields": (
+                    "photo",
                     "user",
                     "statement",
                 )
