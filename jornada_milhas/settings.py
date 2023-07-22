@@ -130,6 +130,7 @@ REST_FRAMEWORK = {
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Jornada Milhas",
-    "DESCRIPTION": "Api desenvolvida no challenge backend `7` da `ALura`",
+    "DESCRIPTION": "Api desenvolvida no challenge backend `7` da `Alura`.",
     "VERSION": "0.1.0",
+    "COMPONENT_SPLIT_REQUEST": True,
 }

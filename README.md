@@ -1,15 +1,18 @@
 # Jornada Milhas
+
 [![Python application](https://github.com/HenriqueCCdA/jornada-milhas/actions/workflows/CI.yml/badge.svg)](https://github.com/HenriqueCCdA/jornada-milhas/actions/workflows/CI.yml)
 [![codecov](https://codecov.io/gh/HenriqueCCdA/jornada-milhas/branch/main/graph/badge.svg?token=DGE83HA807)](https://codecov.io/gh/HenriqueCCdA/jornada-milhas)
 
 | :placard: Vitrine.Dev |     |
 | -------------         | --- |
 | :sparkles: Nome       | `Jornada milhas`
-| :label: Tecnologias   | `Django Rest Framework`, `Python`, `Postgres`, `Pytest`, `Docker`, `Poetry`, `Ruff`, 'codecov', 'swagger'
+| :label: Tecnologias   | `Django Rest Framework`, `Python`, `Postgres`, `Pytest`, `Docker`, `Poetry`, `Ruff`, `codecov`, `swagger`
 | :rocket: URL          |
 
 
-## Instalando as dependencias.
+![](doc/assets/swagger.png)
+
+## Instalando as dependencias
 
 ```bash
 poetry install
