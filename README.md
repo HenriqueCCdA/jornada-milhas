@@ -32,6 +32,17 @@ Rodando o servidor local
 poetry run python manage.py runserver
 ```
 
+As variáveis de ambiente de configurações ser encontras no arquivo `.env.sample`
+
+```bash
+DEBUG=True
+DOC_API=True
+SECRET_KEY=Sua_chave_secreta_aqui!
+ALLOWED_HOSTS=127.0.0.1,localhost
+DATABASE_URL=postgres://jornada_milhas:123456@localhost:5432/jornada_milhas
+CORS_ALLOWED_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
+```
+
 ## Desenvolvimento
 
 Formatador do codigo com `black` e `ruff`:

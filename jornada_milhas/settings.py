@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "jornada_milhas.accounts",
     #
     "rest_framework",
+    "corsheaders",
 ]
 
 if DOC_API:
@@ -41,6 +42,7 @@ if DEBUG:
     INSTALLED_APPS.append("django_extensions")
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -134,3 +136,6 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "0.1.0",
     "COMPONENT_SPLIT_REQUEST": True,
 }
+
+
+CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", cast=Csv())
