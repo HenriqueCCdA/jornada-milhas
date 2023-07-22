@@ -1,4 +1,5 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -9,6 +10,7 @@ from jornada_milhas.core.serialiazer import PostSerialiazer
 class RetrieveUpdateDestroyPost(RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerialiazer
+    parser_classes = [MultiPartParser]
 
     def get(self, request, *args, **kwargs):
         """
@@ -38,6 +40,7 @@ class RetrieveUpdateDestroyPost(RetrieveUpdateDestroyAPIView):
 class ListCreatePost(ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerialiazer
+    parser_classes = [MultiPartParser]
 
     def get(self, request, *args, **kwargs):
         """
