@@ -1,4 +1,6 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from jornada_milhas.core.models import Post
 from jornada_milhas.core.serialiazer import PostSerialiazer
@@ -50,5 +52,16 @@ class ListCreatePost(ListCreateAPIView):
         return super().post(request, *args, **kwargs)
 
 
+class PostHome(APIView):
+    def get(self, resquest):
+        # TODO: Temo fazer isso de outra forma ?
+        posts = Post.objects.order_by("?")[:3]
+
+        serialiazer = PostSerialiazer(instance=posts, many=True)
+
+        return Response(data={"results": serialiazer.data})
+
+
 rud_post = RetrieveUpdateDestroyPost.as_view()
 lc_post = ListCreatePost.as_view()
+post_home = PostHome.as_view()

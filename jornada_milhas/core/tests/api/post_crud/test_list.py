@@ -17,7 +17,7 @@ def test_positive_list(client_api, posts):
 
     posts_db = Post.objects.all()
 
-    assert body["count"] == 3
+    assert body["count"] == 5
 
     for e, r in zip(posts_db, body["results"]):
         assert e.id == r["id"]
