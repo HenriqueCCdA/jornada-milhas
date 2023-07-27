@@ -6,7 +6,7 @@ from model_bakery import baker
 from PIL import Image
 from rest_framework.test import APIClient
 
-from jornada_milhas.core.models import Post
+from jornada_milhas.core.models import Destination, Post
 
 
 @pytest.fixture(autouse=True)
@@ -54,3 +54,13 @@ def payload_post(user, photo):
         "statement": "New",
         "user": user.pk,
     }
+
+
+@pytest.fixture
+def destination(photo, db):
+    return baker.make(Destination, photo=photo)
+
+
+@pytest.fixture
+def destinations(photo, db):
+    return baker.make(Destination, _quantity=6, photo=photo)
