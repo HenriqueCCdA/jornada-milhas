@@ -42,4 +42,4 @@ def test_fields():
         User._meta.get_field("password")
         User._meta.get_field("last_login")
     except FieldDoesNotExist as e:
-        assert False, str(e)
+        raise AssertionError(e) from e

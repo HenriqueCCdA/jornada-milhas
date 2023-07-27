@@ -19,7 +19,7 @@ def test_positive_list(client_api, destinations):
 
     assert body["count"] == 6
 
-    for from_db, from_response in zip(destination_db, body["results"]):
+    for from_db, from_response in zip(destination_db, body["results"], strict=True):
         assert from_db.id == from_response["id"]
         assert from_db.name == from_response["name"]
         assert str(from_db.price) == from_response["price"]

@@ -26,4 +26,4 @@ def test_fields():
         Post._meta.get_field("photo")
         Post._meta.get_field("statement")
     except FieldDoesNotExist as e:
-        assert False, str(e)
+        raise AssertionError(e) from e
