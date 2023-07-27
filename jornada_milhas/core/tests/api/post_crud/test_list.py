@@ -19,7 +19,7 @@ def test_positive_list(client_api, posts):
 
     assert body["count"] == 5
 
-    for from_db, from_response in zip(posts_db, body["results"]):
+    for from_db, from_response in zip(posts_db, body["results"], strict=True):
         assert from_db.id == from_response["id"]
         assert from_db.statement == from_response["statement"]
         assert from_db.user.pk == from_response["user"]

@@ -19,7 +19,7 @@ def test_positive_serializer_more_one_instances(posts):
 
     assert len(data) == 5
 
-    for e, d in zip(posts, data):
+    for e, d in zip(posts, data, strict=True):
         assert d["id"] == e.pk
         assert d["statement"] == e.statement
         assert d["user"] == e.user.pk

@@ -21,7 +21,7 @@ def test_positive_serializer_more_one_instances(destinations):
 
     assert len(data) == 6
 
-    for e, d in zip(destinations, data):
+    for e, d in zip(destinations, data, strict=True):
         assert d["id"] == e.pk
         assert d["name"] == e.name
         assert d["price"] == str(e.price)

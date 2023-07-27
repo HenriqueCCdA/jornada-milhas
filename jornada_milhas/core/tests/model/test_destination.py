@@ -28,7 +28,7 @@ def test_fields():
         Destination._meta.get_field("photo")
         Destination._meta.get_field("price")
     except FieldDoesNotExist as e:
-        assert False, str(e)
+        raise AssertionError(e) from e
 
 
 def test_metadata():
