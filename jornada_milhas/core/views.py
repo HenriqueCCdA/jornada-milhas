@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from jornada_milhas.core.models import Post
-from jornada_milhas.core.serialiazer import PostSerialiazer
+from jornada_milhas.core.serializer import PostSerialiazer
 
 
 class RetrieveUpdateDestroyPost(RetrieveUpdateDestroyAPIView):
