@@ -1,12 +1,12 @@
 from django.shortcuts import resolve_url
 from rest_framework import status
 
-from jornada_milhas.core.models import Post
+from jornada_milhas.core.models import Destination
 
-URL = "core:post-list-create"
+URL = "core:destination-list-create"
 
 
-def test_positive_list(client_api, posts):
+def test_positive_list(client_api, destinations):
     url = resolve_url(URL)
 
     resp = client_api.get(url)
@@ -15,18 +15,18 @@ def test_positive_list(client_api, posts):
 
     assert resp.status_code == status.HTTP_200_OK
 
-    posts_db = Post.objects.all()
+    destination_db = Destination.objects.all()
 
-    assert body["count"] == 5
+    assert body["count"] == 6
 
-    for from_db, from_response in zip(posts_db, body["results"]):
+    for from_db, from_response in zip(destination_db, body["results"]):
         assert from_db.id == from_response["id"]
-        assert from_db.statement == from_response["statement"]
-        assert from_db.user.pk == from_response["user"]
+        assert from_db.name == from_response["name"]
+        assert str(from_db.price) == from_response["price"]
         assert f"http://testserver{from_db.photo.url}" == from_response["photo"]
 
 
-def test_negative_invalid_page_pagination(client_api, posts):
+def test_negative_invalid_page_pagination(client_api, destinations):
     url = resolve_url(URL)
 
     resp = client_api.get(f"{url}?page=5")
