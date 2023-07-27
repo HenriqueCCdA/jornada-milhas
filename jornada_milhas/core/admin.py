@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from jornada_milhas.core.models import Post
+from jornada_milhas.core.models import Destination, Post
 
 
 class PostModelAdmin(admin.ModelAdmin):
@@ -38,4 +38,39 @@ class PostModelAdmin(admin.ModelAdmin):
     )
 
 
+class DestinationModelAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (
+            None,
+            {"fields": ("id",)},
+        ),
+        (
+            _("Post data"),
+            {
+                "fields": (
+                    "photo",
+                    "name",
+                    "price",
+                )
+            },
+        ),
+        (_("Important dates"), {"fields": ("created_at", "modified_at")}),
+    )
+
+    list_display = (
+        "id",
+        "name",
+        "price",
+        "created_at",
+        "modified_at",
+    )
+
+    readonly_fields = (
+        "id",
+        "created_at",
+        "modified_at",
+    )
+
+
 admin.site.register(Post, PostModelAdmin)
+admin.site.register(Destination, DestinationModelAdmin)
