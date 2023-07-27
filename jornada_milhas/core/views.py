@@ -4,12 +4,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from jornada_milhas.core.models import Post
-from jornada_milhas.core.serializer import PostSerialiazer
+from jornada_milhas.core.serializer import PostSerializer
 
 
 class RetrieveUpdateDestroyPost(RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostSerialiazer
+    serializer_class = PostSerializer
     parser_classes = [MultiPartParser]
 
     def get(self, request, *args, **kwargs):
@@ -39,7 +39,7 @@ class RetrieveUpdateDestroyPost(RetrieveUpdateDestroyAPIView):
 
 class ListCreatePost(ListCreateAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostSerialiazer
+    serializer_class = PostSerializer
     parser_classes = [MultiPartParser]
 
     def get(self, request, *args, **kwargs):
@@ -60,7 +60,7 @@ class PostHome(APIView):
         # TODO: Temo fazer isso de outra forma ?
         posts = Post.objects.order_by("?")[:3]
 
-        serialiazer = PostSerialiazer(instance=posts, many=True)
+        serialiazer = PostSerializer(instance=posts, many=True)
 
         return Response(data={"results": serialiazer.data})
 

@@ -64,3 +64,12 @@ def destination(photo, db):
 @pytest.fixture
 def destinations(photo, db):
     return baker.make(Destination, _quantity=6, photo=photo)
+
+
+@pytest.fixture
+def payload_destination(photo):
+    return {
+        "name": "Qualquer lugar",  # TODO: Usar o Fake depois
+        "price": "3.10",
+        "photo": photo,
+    }

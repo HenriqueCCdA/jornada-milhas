@@ -1,10 +1,10 @@
 import pytest
 
-from jornada_milhas.core.serializer import PostSerialiazer
+from jornada_milhas.core.serializer import PostSerializer
 
 
 def test_positive_serializer_one_instance(post):
-    serializer = PostSerialiazer(instance=post)
+    serializer = PostSerializer(instance=post)
     data = serializer.data
 
     assert data["id"] == post.pk
@@ -14,7 +14,7 @@ def test_positive_serializer_one_instance(post):
 
 
 def test_positive_serializer_more_one_instances(posts):
-    serializer = PostSerialiazer(instance=posts, many=True)
+    serializer = PostSerializer(instance=posts, many=True)
     data = serializer.data
 
     assert len(data) == 5
@@ -27,7 +27,7 @@ def test_positive_serializer_more_one_instances(posts):
 
 
 def test_positive_deserializer(payload_post):
-    serializer = PostSerialiazer(data=payload_post)
+    serializer = PostSerializer(data=payload_post)
 
     assert serializer.is_valid()
 
@@ -51,7 +51,7 @@ def test_negative_deserializer_missiging_fields(field, error, payload_post):
 
     del data[field]
 
-    serializer = PostSerialiazer(data=data)
+    serializer = PostSerializer(data=data)
 
     assert not serializer.is_valid()
 
@@ -72,7 +72,7 @@ def test_negative_deserializer_error_fields(field, value, error, payload_post):
 
     data[field] = value
 
-    serializer = PostSerialiazer(data=data)
+    serializer = PostSerializer(data=data)
 
     assert not serializer.is_valid()
 
