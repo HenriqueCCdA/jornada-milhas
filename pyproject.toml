@@ -77,4 +77,4 @@ markers=[
 fmt = {cmd="poetry run black jornada_milhas && poetry run ruff check jornada_milhas --fix", help="Formatador do código"}
 linter = {cmd="poetry run ruff check jornada_milhas", help="Linter"}
 test = {cmd="pytest", help="Rodando os testes"}
-docker_db_up = {cmd="docker compose up db", help="Inicia o container do banco de dados"}
+dk_db_up = {cmd="docker compose up db", help="Inicia o container do banco de dados"}
