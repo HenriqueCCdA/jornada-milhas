@@ -24,7 +24,7 @@ def test_positive_update(client_api, post, new_photo, new_user):
     body = resp.json()
     assert body["statement"] == "new statement"
     assert body["user"] == new_user.pk
-    assert body["photo"] == f"http://testserver/media/{new_photo.name}"
+    assert body["photo"] == f"http://testserver/media/post/{new_photo.name}"
 
 
 @pytest.mark.parametrize(
