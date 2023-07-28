@@ -27,7 +27,7 @@ def test_positive_update(client_api, destination, new_photo):
     body = resp.json()
     assert body["name"] == "New name"
     assert body["price"] == "30.10"
-    assert body["photo"] == f"http://testserver/media/{new_photo.name}"
+    assert body["photo"] == f"http://testserver/media/destination/{new_photo.name}"
 
 
 @pytest.mark.parametrize(

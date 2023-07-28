@@ -11,7 +11,7 @@ User = get_user_model()
 
 class Post(CreationModificationBase):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="users")
-    photo = models.ImageField()
+    photo = models.ImageField(upload_to="post")
     statement = models.TextField()
 
     class Meta:
@@ -23,7 +23,7 @@ class Post(CreationModificationBase):
 
 class Destination(CreationModificationBase):
     name = models.CharField(max_length=200)
-    photo = models.ImageField()
+    photo = models.ImageField(upload_to="destination")
     price = models.DecimalField(max_digits=14, decimal_places=2, validators=[MinValueValidator(Decimal("0.01"))])
 
     class Meta:
