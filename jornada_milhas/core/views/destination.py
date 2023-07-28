@@ -1,5 +1,7 @@
+from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.parsers import MultiPartParser
+from rest_framework.response import Response
 
 from jornada_milhas.core.models import Destination
 from jornada_milhas.core.serializer import DestinationSerializer
@@ -42,9 +44,23 @@ class ListCreateDesination(ListCreateAPIView):
 
     def get(self, request, *args, **kwargs):
         """
-        Listando os destinos.
+        Listando os destinos. Os destinos podem ser filtrados por `name`
+        que pode user suado como `?name=<cidade>`
         """
-        return super().get(request, *args, **kwargs)
+        queryset = self.get_queryset()
+
+        if name := self.request.query_params.get("name"):
+            queryset = queryset.filter(name__icontains=name)
+            if not queryset.exists():
+                return Response(data={"mensagem": "Nenhum destino foi encontrado."}, status=status.HTTP_404_NOT_FOUND)
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
         """
