@@ -1,3 +1,4 @@
+import pytest
 from django.shortcuts import resolve_url
 from model_bakery import baker
 from rest_framework import status
@@ -7,7 +8,9 @@ from jornada_milhas.core.models import Destination
 URL = "core:destination-list-create"
 
 
-def test_positive_list(client_api, destinations):
+@pytest.mark.integration
+@pytest.mark.num_destination(6)
+def test_positive_list(client_api, destination):
     url = resolve_url(URL)
 
     resp = client_api.get(url)
@@ -30,6 +33,7 @@ def test_positive_list(client_api, destinations):
         assert from_db.meta == from_response["meta"]
 
 
+@pytest.mark.integration
 def test_positive_list_query_param(client_api, photo, photo2, db):
     url = resolve_url(URL)
 
@@ -47,6 +51,7 @@ def test_positive_list_query_param(client_api, photo, photo2, db):
     assert body["count"] == 2
 
 
+@pytest.mark.integration
 def test_positive_list_query_param_not_found(client_api, photo, photo2, db):
     url = resolve_url(URL)
 
@@ -64,7 +69,9 @@ def test_positive_list_query_param_not_found(client_api, photo, photo2, db):
     assert body["mensagem"] == "Nenhum destino foi encontrado."
 
 
-def test_negative_invalid_page_pagination(client_api, destinations):
+@pytest.mark.integration
+@pytest.mark.num_destination(3)
+def test_negative_invalid_page_pagination(client_api, destination):
     url = resolve_url(URL)
 
     resp = client_api.get(f"{url}?page=5")

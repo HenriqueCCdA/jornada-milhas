@@ -5,6 +5,7 @@ from rest_framework import status
 URL = "core:post-retrieve-update-destroy"
 
 
+@pytest.mark.integration
 def test_positive_update(client_api, post):
     url = resolve_url(URL, post.pk)
 
@@ -23,6 +24,7 @@ def test_positive_update(client_api, post):
     assert body["photo"] == f"http://testserver/media/{post.photo.name}"
 
 
+@pytest.mark.integration
 @pytest.mark.parametrize(
     "field, value, error",
     [
@@ -52,6 +54,7 @@ def test_negative_validation_errors(client_api, field, post, value, error):
     assert body[field] == [error]
 
 
+@pytest.mark.integration
 def test_negative_not_found(client_api, db):
     url = resolve_url(URL, 404)
 

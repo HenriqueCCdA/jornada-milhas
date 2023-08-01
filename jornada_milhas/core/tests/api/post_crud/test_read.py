@@ -1,9 +1,11 @@
+import pytest
 from django.shortcuts import resolve_url
 from rest_framework import status
 
 URL = "core:post-retrieve-update-destroy"
 
 
+@pytest.mark.integration
 def test_positive_read(client_api, post):
     url = resolve_url(URL, post.pk)
 
@@ -19,6 +21,7 @@ def test_positive_read(client_api, post):
     assert body["photo"] == f"http://testserver{post.photo.url}"
 
 
+@pytest.mark.integration
 def test_negative_not_found(client_api, db):
     url = resolve_url(URL, 404)
 

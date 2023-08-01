@@ -56,16 +56,6 @@ def new_photo2():
 
 
 @pytest.fixture
-def post(photo, db):
-    return baker.make(Post, photo=photo)
-
-
-@pytest.fixture
-def posts(photo, db):
-    return baker.make(Post, _quantity=5, photo=photo)
-
-
-@pytest.fixture
 def payload_post(user, photo, photo2):
     return {
         "photo": photo,
@@ -75,13 +65,23 @@ def payload_post(user, photo, photo2):
 
 
 @pytest.fixture
-def destination(photo, photo2, db):
-    return baker.make(Destination, photo1=photo, photo2=photo2)
+def post(request, faker, photo, db):
+    m = request.node.get_closest_marker("num_post")
+    if m and len(m.args) > 0:
+        num_post = m.args[0]
+        return baker.make(Post, _quantity=num_post, photo=photo)
+    else:
+        return baker.make(Post, photo=photo)
 
 
 @pytest.fixture
-def destinations(photo, photo2, db):
-    return baker.make(Destination, _quantity=6, photo1=photo, photo2=photo2)
+def destination(request, faker, photo, photo2, db):
+    m = request.node.get_closest_marker("num_destination")
+    if m and len(m.args) > 0:
+        num_destination = m.args[0]
+        return baker.make(Destination, _quantity=num_destination, photo1=photo, photo2=photo2)
+    else:
+        return baker.make(Destination, photo1=photo, photo2=photo2)
 
 
 @pytest.fixture
