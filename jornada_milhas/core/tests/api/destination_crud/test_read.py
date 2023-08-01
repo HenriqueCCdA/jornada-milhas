@@ -16,7 +16,10 @@ def test_positive_read(client_api, destination):
     assert body["id"] == destination.pk
     assert body["name"] == destination.name
     assert body["price"] == str(destination.price)
-    assert body["photo"] == f"http://testserver{destination.photo.url}"
+    assert body["photo1"] == f"http://testserver{destination.photo1.url}"
+    assert body["photo2"] == f"http://testserver{destination.photo2.url}"
+    assert body["meta"] == destination.meta
+    assert body["describe"] is None
 
 
 def test_negative_not_found(client_api, db):

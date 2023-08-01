@@ -29,12 +29,30 @@ def photo():
 
 
 @pytest.fixture
+def photo2():
+    file = io.BytesIO()
+    image = Image.new("RGBA", size=(100, 100), color=(155, 0, 0))
+    image.save(file, "png")
+    file.seek(0)
+    return ContentFile(file.read(), name="photo2.png")
+
+
+@pytest.fixture
 def new_photo():
     file = io.BytesIO()
     image = Image.new("RGBA", size=(100, 100), color=(155, 0, 0))
     image.save(file, "png")
     file.seek(0)
     return ContentFile(file.read(), name="new_photo.png")
+
+
+@pytest.fixture
+def new_photo2():
+    file = io.BytesIO()
+    image = Image.new("RGBA", size=(100, 100), color=(155, 0, 0))
+    image.save(file, "png")
+    file.seek(0)
+    return ContentFile(file.read(), name="new_photo2.png")
 
 
 @pytest.fixture
@@ -48,7 +66,7 @@ def posts(photo, db):
 
 
 @pytest.fixture
-def payload_post(user, photo):
+def payload_post(user, photo, photo2):
     return {
         "photo": photo,
         "statement": "New",
@@ -57,19 +75,21 @@ def payload_post(user, photo):
 
 
 @pytest.fixture
-def destination(photo, db):
-    return baker.make(Destination, photo=photo)
+def destination(photo, photo2, db):
+    return baker.make(Destination, photo1=photo, photo2=photo2)
 
 
 @pytest.fixture
-def destinations(photo, db):
-    return baker.make(Destination, _quantity=6, photo=photo)
+def destinations(photo, photo2, db):
+    return baker.make(Destination, _quantity=6, photo1=photo, photo2=photo2)
 
 
 @pytest.fixture
-def payload_destination(photo):
+def payload_destination(photo, photo2):
     return {
         "name": "Qualquer lugar",  # TODO: Usar o Fake depois
         "price": "3.10",
-        "photo": photo,
+        "photo1": photo,
+        "photo2": photo2,
+        "meta": "meta",
     }

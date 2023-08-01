@@ -12,7 +12,10 @@ def test_positive_serializer_one_instance(destination):
     assert data["id"] == destination.pk
     assert data["name"] == destination.name
     assert data["price"] == str(destination.price)
-    assert data["photo"] == destination.photo.url
+    assert data["photo1"] == destination.photo1.url
+    assert data["photo2"] == destination.photo2.url
+    assert data["meta"] == destination.meta
+    assert data["describe"] is None
 
 
 def test_positive_serializer_more_one_instances(destinations):
@@ -25,7 +28,10 @@ def test_positive_serializer_more_one_instances(destinations):
         assert d["id"] == e.pk
         assert d["name"] == e.name
         assert d["price"] == str(e.price)
-        assert d["photo"] == e.photo.url
+        assert d["photo1"] == e.photo1.url
+        assert d["photo2"] == e.photo2.url
+        assert d["meta"] == e.meta
+        assert d["describe"] is None
 
 
 def test_positive_deserializer(payload_destination):
@@ -37,7 +43,7 @@ def test_positive_deserializer(payload_destination):
 
     assert validated["name"] == payload_destination["name"]
     assert validated["price"] == Decimal(payload_destination["price"])
-    assert validated["photo"] == payload_destination["photo"]
+    assert validated["photo1"] == payload_destination["photo1"]
 
 
 @pytest.mark.parametrize(
@@ -45,8 +51,11 @@ def test_positive_deserializer(payload_destination):
     [
         ("name", "Este campo é obrigatório."),
         ("price", "Este campo é obrigatório."),
-        ("photo", "Nenhum arquivo foi submetido."),
+        ("photo1", "Nenhum arquivo foi submetido."),
+        ("photo2", "Nenhum arquivo foi submetido."),
+        ("meta", "Este campo é obrigatório."),
     ],
+    ids=["name", "price", "photo1", "photo2", "meta"],
 )
 def test_negative_deserializer_missiging_fields(field, error, payload_destination):
     data = payload_destination.copy()
@@ -65,9 +74,10 @@ def test_negative_deserializer_missiging_fields(field, error, payload_destinatio
     [
         ("price", "dd", "Um número válido é necessário."),
         ("price", -1.00, "Certifque-se de que este valor seja maior ou igual a 0.01."),
-        ("photo", 1, "O dado submetido não é um arquivo. Certifique-se do tipo de codificação no formulário."),
+        ("photo1", 1, "O dado submetido não é um arquivo. Certifique-se do tipo de codificação no formulário."),
+        ("photo2", 1, "O dado submetido não é um arquivo. Certifique-se do tipo de codificação no formulário."),
     ],
-    ids=["user-1", "user-2", "photo"],
+    ids=["price-1", "price-2", "photo1", "photo2"],
 )
 def test_negative_deserializer_error_fields(field, value, error, payload_destination):
     data = payload_destination.copy()

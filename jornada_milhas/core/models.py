@@ -23,8 +23,11 @@ class Post(CreationModificationBase):
 
 class Destination(CreationModificationBase):
     name = models.CharField(max_length=200)
-    photo = models.ImageField(upload_to="destination")
+    photo1 = models.ImageField(upload_to="destination")
+    photo2 = models.ImageField(upload_to="destination")
     price = models.DecimalField(max_digits=14, decimal_places=2, validators=[MinValueValidator(Decimal("0.01"))])
+    meta = models.CharField(max_length=160)
+    describe = models.TextField(blank=True, null=True)
 
     class Meta:
         ordering = ("-created_at",)

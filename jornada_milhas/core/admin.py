@@ -48,7 +48,10 @@ class DestinationModelAdmin(admin.ModelAdmin):
             _("Post data"),
             {
                 "fields": (
-                    "photo",
+                    "photo1",
+                    "photo2",
+                    "meta",
+                    "describe",
                     "name",
                     "price",
                 )

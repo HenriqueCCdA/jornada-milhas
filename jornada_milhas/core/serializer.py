@@ -21,5 +21,8 @@ class DestinationSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "price",
-            "photo",
+            "photo1",
+            "photo2",
+            "meta",
+            "describe",
         )

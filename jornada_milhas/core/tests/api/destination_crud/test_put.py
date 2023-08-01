@@ -7,13 +7,16 @@ from rest_framework import status
 URL = "core:destination-retrieve-update-destroy"
 
 
-def test_positive_update(client_api, destination, new_photo):
+def test_positive_update(client_api, destination, new_photo, new_photo2):
     url = resolve_url(URL, destination.pk)
 
     data = {
         "name": "New name",
         "price": "30.10",
-        "photo": new_photo,
+        "photo1": new_photo,
+        "photo2": new_photo2,
+        "meta": "New meta",
+        "describe": "New describe",
     }
 
     resp = client_api.put(url, data=data, format="multipart")
@@ -27,7 +30,10 @@ def test_positive_update(client_api, destination, new_photo):
     body = resp.json()
     assert body["name"] == "New name"
     assert body["price"] == "30.10"
-    assert body["photo"] == f"http://testserver/media/destination/{new_photo.name}"
+    assert body["photo1"] == f"http://testserver/media/destination/{new_photo.name}"
+    assert body["photo2"] == f"http://testserver/media/destination/{new_photo2.name}"
+    assert body["meta"] == "New meta"
+    assert body["describe"] == "New describe"
 
 
 @pytest.mark.parametrize(
@@ -35,9 +41,11 @@ def test_positive_update(client_api, destination, new_photo):
     [
         ("name", ["Este campo é obrigatório."]),
         ("price", ["Este campo é obrigatório."]),
-        ("photo", ["Nenhum arquivo foi submetido."]),
+        ("photo1", ["Nenhum arquivo foi submetido."]),
+        ("photo2", ["Nenhum arquivo foi submetido."]),
+        ("meta", ["Este campo é obrigatório."]),
     ],
-    ids=["name", "price", "photo"],
+    ids=["name", "price", "photo1", "photo2", "meta"],
 )
 def test_negative_missing_fields(client_api, destination, field, error):
     url = resolve_url(URL, destination.pk)
@@ -45,7 +53,9 @@ def test_negative_missing_fields(client_api, destination, field, error):
     data = {
         "name": destination.name,
         "price": destination.price,
-        "photo": destination.photo.file,
+        "photo1": destination.photo1.file,
+        "photo2": destination.photo2.file,
+        "meta": destination.meta,
     }
 
     del data[field]
@@ -63,15 +73,18 @@ def test_negative_missing_fields(client_api, destination, field, error):
     [
         ("price", "dd", "Um número válido é necessário."),
         ("price", -1.00, "Certifque-se de que este valor seja maior ou igual a 0.01."),
-        ("photo", 1, "O dado submetido não é um arquivo. Certifique-se do tipo de codificação no formulário."),
+        ("photo1", 1, "O dado submetido não é um arquivo. Certifique-se do tipo de codificação no formulário."),
+        ("photo2", 1, "O dado submetido não é um arquivo. Certifique-se do tipo de codificação no formulário."),
     ],
-    ids=["price-1", "price-2", "photo"],
+    ids=["price-1", "price-2", "photo1", "photo2"],
 )
 def test_negative_validation_errors(client_api, field, destination, value, error):
     data = {
         "name": destination.name,
         "price": destination.price,
-        "photo": destination.photo.file,
+        "photo1": destination.photo1.file,
+        "photo2": destination.photo2.file,
+        "meta": destination.meta,
     }
 
     data[field] = value
