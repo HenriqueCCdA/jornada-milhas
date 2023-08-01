@@ -1,10 +1,13 @@
+import pytest
 from django.shortcuts import resolve_url
 from rest_framework import status
 
 URL = "core:post-home"
 
 
-def test_possitive(client_api, posts):
+@pytest.mark.integration
+@pytest.mark.num_post(3)
+def test_possitive(client_api, post):
     url = resolve_url(URL)
 
     resp = client_api.get(url)

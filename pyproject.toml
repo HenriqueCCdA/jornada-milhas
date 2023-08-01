@@ -76,6 +76,8 @@ testpaths = [
 markers=[
     "unitary: marks unitary tests",
     "integration: marks integration testes",
+    "num_destination: number of destinantion",
+    "num_post: number of post",
 ]
 
 [tool.taskipy.tasks]

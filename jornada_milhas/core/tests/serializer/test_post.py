@@ -3,6 +3,7 @@ import pytest
 from jornada_milhas.core.serializer import PostSerializer
 
 
+@pytest.mark.unitary
 def test_positive_serializer_one_instance(post):
     serializer = PostSerializer(instance=post)
     data = serializer.data
@@ -13,19 +14,22 @@ def test_positive_serializer_one_instance(post):
     assert data["photo"] == post.photo.url
 
 
-def test_positive_serializer_more_one_instances(posts):
-    serializer = PostSerializer(instance=posts, many=True)
+@pytest.mark.unitary
+@pytest.mark.num_post(5)
+def test_positive_serializer_more_one_instances(post):
+    serializer = PostSerializer(instance=post, many=True)
     data = serializer.data
 
     assert len(data) == 5
 
-    for e, d in zip(posts, data, strict=True):
+    for e, d in zip(post, data, strict=True):
         assert d["id"] == e.pk
         assert d["statement"] == e.statement
         assert d["user"] == e.user.pk
         assert d["photo"] == e.photo.url
 
 
+@pytest.mark.unitary
 def test_positive_deserializer(payload_post):
     serializer = PostSerializer(data=payload_post)
 
@@ -38,6 +42,7 @@ def test_positive_deserializer(payload_post):
     assert validated["photo"] == payload_post["photo"]
 
 
+@pytest.mark.unitary
 @pytest.mark.parametrize(
     "field,error",
     [
@@ -58,6 +63,7 @@ def test_negative_deserializer_missiging_fields(field, error, payload_post):
     assert serializer.errors[field] == [error]
 
 
+@pytest.mark.unitary
 @pytest.mark.parametrize(
     "field, value, error",
     [

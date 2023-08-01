@@ -7,6 +7,7 @@ from jornada_milhas.core.models import Post
 URL = "core:post-list-create"
 
 
+@pytest.mark.integration
 def test_positive_list(client_api, payload_post):
     url = resolve_url(URL)
 
@@ -26,6 +27,7 @@ def test_positive_list(client_api, payload_post):
     assert body["user"] == post_db.user.pk
 
 
+@pytest.mark.integration
 @pytest.mark.parametrize(
     "field, error",
     [
@@ -54,6 +56,7 @@ def test_negative_missing_fields(client_api, post, field, error):
     assert body[field] == error
 
 
+@pytest.mark.integration
 @pytest.mark.parametrize(
     "field, value, error",
     [

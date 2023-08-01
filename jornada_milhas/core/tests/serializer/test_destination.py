@@ -5,6 +5,7 @@ import pytest
 from jornada_milhas.core.serializer import DestinationSerializer
 
 
+@pytest.mark.unitary
 def test_positive_serializer_one_instance(destination):
     serializer = DestinationSerializer(instance=destination)
     data = serializer.data
@@ -18,13 +19,15 @@ def test_positive_serializer_one_instance(destination):
     assert data["describe"] is None
 
 
-def test_positive_serializer_more_one_instances(destinations):
-    serializer = DestinationSerializer(instance=destinations, many=True)
+@pytest.mark.unitary
+@pytest.mark.num_destination(6)
+def test_positive_serializer_more_one_instances(destination):
+    serializer = DestinationSerializer(instance=destination, many=True)
     data = serializer.data
 
     assert len(data) == 6
 
-    for e, d in zip(destinations, data, strict=True):
+    for e, d in zip(destination, data, strict=True):
         assert d["id"] == e.pk
         assert d["name"] == e.name
         assert d["price"] == str(e.price)
@@ -34,6 +37,7 @@ def test_positive_serializer_more_one_instances(destinations):
         assert d["describe"] is None
 
 
+@pytest.mark.unitary
 def test_positive_deserializer(payload_destination):
     serializer = DestinationSerializer(data=payload_destination)
 
@@ -46,6 +50,7 @@ def test_positive_deserializer(payload_destination):
     assert validated["photo1"] == payload_destination["photo1"]
 
 
+@pytest.mark.unitary
 @pytest.mark.parametrize(
     "field,error",
     [
@@ -69,6 +74,7 @@ def test_negative_deserializer_missiging_fields(field, error, payload_destinatio
     assert serializer.errors[field] == [error]
 
 
+@pytest.mark.unitary
 @pytest.mark.parametrize(
     "field, value, error",
     [

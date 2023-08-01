@@ -1,3 +1,4 @@
+import pytest
 from django.shortcuts import resolve_url
 from rest_framework import status
 
@@ -6,6 +7,7 @@ from jornada_milhas.core.models import Destination
 URL = "core:destination-retrieve-update-destroy"
 
 
+@pytest.mark.integration
 def test_positive_delete(client_api, destination):
     url = resolve_url(URL, destination.pk)
 
@@ -16,6 +18,7 @@ def test_positive_delete(client_api, destination):
     assert not Destination.objects.exists()
 
 
+@pytest.mark.integration
 def test_negative_not_found(client_api, db):
     url = resolve_url(URL, 404)
 

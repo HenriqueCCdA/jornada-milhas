@@ -5,6 +5,7 @@ from rest_framework import status
 URL = "core:destination-retrieve-update-destroy"
 
 
+@pytest.mark.integration
 def test_positive_update(client_api, destination):
     url = resolve_url(URL, destination.pk)
 
@@ -30,6 +31,7 @@ def test_positive_update(client_api, destination):
     assert body["describe"] == "New  describe"
 
 
+@pytest.mark.integration
 @pytest.mark.parametrize(
     "field, value, error",
     [
@@ -61,6 +63,7 @@ def test_negative_validation_errors(client_api, field, destination, value, error
     assert body[field] == [error]
 
 
+@pytest.mark.integration
 def test_negative_not_found(client_api, db):
     url = resolve_url(URL, 404)
 

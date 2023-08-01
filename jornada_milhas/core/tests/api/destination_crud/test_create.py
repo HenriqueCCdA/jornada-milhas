@@ -7,6 +7,7 @@ from jornada_milhas.core.models import Destination
 URL = "core:destination-list-create"
 
 
+@pytest.mark.integration
 def test_positive_list(client_api, payload_destination, db):
     url = resolve_url(URL)
 
@@ -28,6 +29,7 @@ def test_positive_list(client_api, payload_destination, db):
     assert body["meta"] == destination_db.meta
 
 
+@pytest.mark.integration
 @pytest.mark.parametrize(
     "field, error",
     [
@@ -60,6 +62,7 @@ def test_negative_missing_fields(client_api, destination, field, error):
     assert body[field] == error
 
 
+@pytest.mark.integration
 @pytest.mark.parametrize(
     "field, value, error",
     [
