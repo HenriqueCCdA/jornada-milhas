@@ -21,9 +21,11 @@ def test_positive_list(client_api, payload_destination, db):
     destination_db = Destination.objects.all()[0]
 
     assert body["id"] == destination_db.pk
-    assert body["photo"] == f"http://testserver{destination_db.photo.url}"
     assert body["name"] == destination_db.name
     assert body["price"] == str(destination_db.price)
+    assert body["photo1"] == f"http://testserver{destination_db.photo1.url}"
+    assert body["photo2"] == f"http://testserver{destination_db.photo2.url}"
+    assert body["meta"] == destination_db.meta
 
 
 @pytest.mark.parametrize(
@@ -31,9 +33,11 @@ def test_positive_list(client_api, payload_destination, db):
     [
         ("name", ["Este campo é obrigatório."]),
         ("price", ["Este campo é obrigatório."]),
-        ("photo", ["Nenhum arquivo foi submetido."]),
+        ("photo1", ["Nenhum arquivo foi submetido."]),
+        ("photo2", ["Nenhum arquivo foi submetido."]),
+        ("meta", ["Este campo é obrigatório."]),
     ],
-    ids=["name", "price", "photo"],
+    ids=["name", "price", "photo1", "photo2", "meta"],
 )
 def test_negative_missing_fields(client_api, destination, field, error):
     url = resolve_url(URL)
@@ -41,7 +45,9 @@ def test_negative_missing_fields(client_api, destination, field, error):
     data = {
         "name": destination.name,
         "price": destination.price,
-        "photo": destination.photo.file,
+        "photo1": destination.photo1.file,
+        "photo2": destination.photo2.file,
+        "meta": destination.meta,
     }
 
     del data[field]
@@ -59,15 +65,18 @@ def test_negative_missing_fields(client_api, destination, field, error):
     [
         ("price", "dd", "Um número válido é necessário."),
         ("price", -1.00, "Certifque-se de que este valor seja maior ou igual a 0.01."),
-        ("photo", 1, "O dado submetido não é um arquivo. Certifique-se do tipo de codificação no formulário."),
+        ("photo1", 1, "O dado submetido não é um arquivo. Certifique-se do tipo de codificação no formulário."),
+        ("photo2", 1, "O dado submetido não é um arquivo. Certifique-se do tipo de codificação no formulário."),
     ],
-    ids=["price-1", "price-2", "photo"],
+    ids=["price-1", "price-2", "photo1", "photo2"],
 )
 def test_negative_validation_errors(client_api, field, destination, value, error):
     data = {
         "name": destination.name,
         "price": destination.price,
-        "photo": destination.photo.file,
+        "photo1": destination.photo1.file,
+        "photo2": destination.photo2.file,
+        "meta": destination.meta,
     }
 
     data[field] = value

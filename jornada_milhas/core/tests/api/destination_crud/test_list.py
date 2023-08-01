@@ -24,16 +24,19 @@ def test_positive_list(client_api, destinations):
         assert from_db.id == from_response["id"]
         assert from_db.name == from_response["name"]
         assert str(from_db.price) == from_response["price"]
-        assert f"http://testserver{from_db.photo.url}" == from_response["photo"]
+        assert f"http://testserver{from_db.photo1.url}" == from_response["photo1"]
+        assert f"http://testserver{from_db.photo2.url}" == from_response["photo2"]
+        assert f"http://testserver{from_db.photo2.url}" == from_response["photo2"]
+        assert from_db.meta == from_response["meta"]
 
 
-def test_positive_list_query_param(client_api, photo, db):
+def test_positive_list_query_param(client_api, photo, photo2, db):
     url = resolve_url(URL)
 
-    baker.make(Destination, name="Brasil", photo=photo)
-    baker.make(Destination, name="Bahamas", photo=photo)
-    baker.make(Destination, name="Barbados", photo=photo)
-    baker.make(Destination, name="Ruanda", photo=photo)
+    baker.make(Destination, name="Brasil", photo1=photo, photo2=photo2)
+    baker.make(Destination, name="Bahamas", photo1=photo, photo2=photo2)
+    baker.make(Destination, name="Barbados", photo1=photo, photo2=photo2)
+    baker.make(Destination, name="Ruanda", photo1=photo, photo2=photo2)
 
     resp = client_api.get(f"{url}?name=Ba")
 
@@ -44,13 +47,13 @@ def test_positive_list_query_param(client_api, photo, db):
     assert body["count"] == 2
 
 
-def test_positive_list_query_param_not_found(client_api, photo, db):
+def test_positive_list_query_param_not_found(client_api, photo, photo2, db):
     url = resolve_url(URL)
 
-    baker.make(Destination, name="Brasil", photo=photo)
-    baker.make(Destination, name="Bahamas", photo=photo)
-    baker.make(Destination, name="Barbados", photo=photo)
-    baker.make(Destination, name="Ruanda", photo=photo)
+    baker.make(Destination, name="Brasil", photo1=photo, photo2=photo2)
+    baker.make(Destination, name="Bahamas", photo1=photo, photo2=photo2)
+    baker.make(Destination, name="Barbados", photo1=photo, photo2=photo2)
+    baker.make(Destination, name="Ruanda", photo1=photo, photo2=photo2)
 
     resp = client_api.get(f"{url}?name=Fa")
 
